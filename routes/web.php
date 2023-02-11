@@ -3,6 +3,7 @@
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,15 @@ Route::group(['middleware' => ['auth']], static function () {
             Route::get('/', 'edit')->name('edit');
             Route::patch('/', 'update')->name('update');
             Route::delete('/', 'destroy')->name('destroy');
+        });
+
+    Route::controller(PostController::class)
+        ->as('post.')
+        ->prefix('post')
+        ->group(function () {
+            Route::post('/', 'store')->name('store');
+            Route::patch('/{post}', 'update')->name('update');
+            Route::delete('/{post}', 'destroy')->name('destroy');
         });
 });
 

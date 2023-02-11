@@ -21,18 +21,20 @@ defineProps({
         <template #sidebar>
         </template>
 
-        <div class="py-12 w-full">
+        <div class="w-full">
             <div class="sm:px-6 lg:px-8 space-y-8 divide-y">
-                <UpdateProfileInformationForm
-                    :must-verify-email="mustVerifyEmail"
-                    :status="status"
-                />
+                <div class="p-4 bg-white shadow-sm md:rounded-lg">
+                    <UpdateProfileInformationForm
+                        :must-verify-email="mustVerifyEmail"
+                        :status="status"
+                    />
+                </div>
 
-                <div class="pt-4">
+                <div class="p-4 bg-white shadow-sm md:rounded-lg">
                     <UpdatePasswordForm/>
                 </div>
 
-                <div class="pt-4">
+                <div class="p-4 bg-white shadow-sm md:rounded-lg">
                     <DeleteUserForm/>
                 </div>
             </div>
