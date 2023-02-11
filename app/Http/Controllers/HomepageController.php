@@ -28,6 +28,7 @@ class HomepageController extends Controller
             ->append('liked_by_current_user');
 
         $users = User::query()
+            ->whereNot('id', auth()->id())
             ->inRandomOrder()
             ->limit(3)
             ->get(['id', 'name', 'username']);

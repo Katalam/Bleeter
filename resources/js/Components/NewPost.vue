@@ -28,7 +28,7 @@ const closeModal = () => {
 };
 
 const submitPost = () => {
-    form.post(route('post.store'), {
+    form.post(route('posts.store'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
         onError: () => bodyInput.value.focus(),

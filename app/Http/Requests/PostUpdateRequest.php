@@ -13,6 +13,6 @@ class PostUpdateRequest extends FormRequest
 
     public function rules(): array
     {
-        return PostStoreRequest::rules();
+        return (new PostStoreRequest())->rules();
     }
 }

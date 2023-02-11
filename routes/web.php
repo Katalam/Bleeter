@@ -47,8 +47,8 @@ Route::group(['middleware' => ['auth']], static function () {
         });
 
     Route::controller(PostController::class)
-        ->as('post.')
-        ->prefix('post')
+        ->as('posts.')
+        ->prefix('posts')
         ->group(function () {
             Route::post('/', 'store')->name('store');
             Route::patch('/{post}', 'update')->name('update');
