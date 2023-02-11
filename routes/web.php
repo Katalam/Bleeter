@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\HashtagController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
@@ -31,6 +32,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth']], static function () {
     Route::get('/home', HomepageController::class)->name('home');
+    Route::get('/hashtags/{hashtag}', HashtagController::class)->name('hashtag');
 
     // Toggling likes on posts
     Route::post('/like', LikeController::class)->name('like');

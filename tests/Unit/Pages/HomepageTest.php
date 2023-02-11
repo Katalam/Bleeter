@@ -22,6 +22,7 @@ test('it shows the homepage', function () {
         ->has('posts', 20, fn(Assert $posts) => $posts
             ->has('id')
             ->has('body')
+            ->has('body_html')
             ->has('created_at')
             ->has('updated_at')
             ->has('liked_by_current_user')

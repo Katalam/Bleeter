@@ -21,6 +21,29 @@ class Post extends Model
         'created_at_human',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(static function (Post $post) {
+            $string = htmlspecialchars_decode($post->body);
+
+            preg_match_all('/(\B|\b)(?<hashtag>#[a-zA-Z]+\b)/', $string, $match);
+            foreach (data_get($match, 'hashtag', []) as $value) {
+                Hashtag::create([
+                    'post_id' => $post->id,
+                    'slug' => substr($value, 1),
+                ]);
+            }
+//            preg_match_all('/(\B|\b)(?<user>@[a-zA-Z]+\b)/', $string, $match);
+//            foreach (data_get($match, 'user', []) as $value) {
+//                if ($user = User::query()->where('username', substr($value, 1))->first()) {
+//                    // possible notification
+//                }
+//            }
+        });
+    }
+
     public function getCreatedAtHumanAttribute(): string
     {
         return $this->created_at->diffForHumans();
@@ -41,5 +64,28 @@ class Post extends Model
     public function likes(): HasMany
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function hashtags(): HasMany
+    {
+        return $this->hasMany(Hashtag::class);
+    }
+
+    public function getBodyHtmlAttribute(): string
+    {
+        $string = htmlspecialchars_decode($this->body);
+
+        preg_match_all('/(\B|\b)(?<hashtag>#\S+\b)/', $string, $match);
+        foreach (data_get($match, 'hashtag', []) as $value) {
+            $string = str_replace($value, '<Link href="' . route('hashtag', substr($value, 1)) . '"><span class="text-green-600 cursor-pointer">' . $value . '</span></Link>', $string);
+        }
+//        preg_match_all('/(\B|\b)(?<user>@\S+\b)/', $string, $match);
+//        foreach (data_get($match, 'user', []) as $value) {
+//            if ($user = User::query()->where('username', substr($value, 1))->first()) {
+//                $string = str_replace($value, '<Link href="' . route('profile-page', $user) . '"><span class="text-li-red cursor-pointer">' . $value . '</span></a>', $string);
+//            }
+//        }
+
+        return nl2br($string);
     }
 }

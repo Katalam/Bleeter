@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hashtag;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class HomepageController extends Controller
+class HashtagController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, string $hashtag)
     {
+        $postIds = Hashtag::query()
+            ->where('slug', 'LIKE', '%' . $hashtag . '%')
+            ->get(['id', 'post_id'])
+            ->pluck('post_id');
+
+
+
+        // With username and likes count
         $posts = Post::query()
-            // With username and likes count
+            ->whereIn('id', $postIds)
             ->with(['user:id,name', 'likes'])
             ->withCount('likes')
             // Limit by request parameter
@@ -33,9 +42,11 @@ class HomepageController extends Controller
             ->limit(3)
             ->get(['id', 'name', 'username']);
 
-        return inertia('Homepage', [
+        return inertia('Hashtag', [
+            'hashtag' => $request->hashtag,
             'posts' => $posts,
             'users' => $users,
+            'maxPosts' => $postIds->count(),
         ]);
     }
 }

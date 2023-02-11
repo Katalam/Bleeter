@@ -13,10 +13,14 @@ defineProps({
     users: {
         type: Array,
         required: true
-    }
+    },
+    maxPosts: {
+        type: Number,
+        required: true
+    },
 })
 
-let limit = 30;
+let limit = 10;
 
 function loadMore() {
     Inertia.reload({
@@ -86,7 +90,7 @@ let sort = 'created_at';
             <Post :post="post" v-for="post in posts" :id="post.id"/>
         </div>
 
-        <div class="flex items-center justify-center text-neutral-400">
+        <div class="flex items-center justify-center text-neutral-400" v-show="limit < $page.props.maxPosts">
             <button class=" hover:underline select-none" @click="loadMore()">
                 Load more...
             </button>

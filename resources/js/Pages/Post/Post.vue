@@ -1,4 +1,6 @@
 <script setup>
+import {Link} from "@inertiajs/inertia-vue3";
+
 const props = defineProps({
     post: {
         type: Object,
@@ -30,7 +32,7 @@ function like() {
             <p class="text-sm text-gray-500">{{ post.user.name }}</p>
             <p class="text-sm text-gray-500">{{ post.created_at_human }}</p>
         </div>
-        <p>{{ post.body }}</p>
+        <p v-html="post.body_html" />
         <div>
             <button class="text-sm text-gray-500" @click="like()" :class="{ 'font-semibold' : props.post.liked_by_current_user}">
                 <span v-text="post.likes_count"></span>
