@@ -24,6 +24,39 @@ function loadMore() {
     })
     limit += 10;
 }
+
+function mostLiked() {
+    sort = 'likes_count';
+    Inertia.reload({
+        preserveState: true,
+        preserveScroll: true,
+        only: ['posts'],
+        data: {
+            l: limit,
+            s: 'likes_count'
+        }
+    })
+}
+
+function mostRecent() {
+    // Remove the s param from the url
+    let params = new URLSearchParams(location.search);
+    params.delete('s')
+    window.history.replaceState({}, '', `${location.pathname}?${params}`);
+
+    sort = 'created_at';
+
+    Inertia.reload({
+        preserveState: true,
+        preserveScroll: true,
+        only: ['posts'],
+        data: {
+            l: limit,
+        }
+    })
+}
+
+let sort = 'created_at';
 </script>
 
 <template>
@@ -37,8 +70,8 @@ function loadMore() {
         </template>
 
         <div class="grid grid-cols-3 bg-white shadow-sm md:rounded-lg divide-x text-center overflow-hidden">
-            <div class="p-4 border-b-2 border-green-500">Recent</div>
-            <div class="p-4 border-b-2 border-b-transparent">Most liked</div>
+            <button class="p-4 border-b-2" @click="mostRecent()" :class="sort === 'created_at' ? 'border-b-green-500' : 'border-b-transparent'">Recent</button>
+            <button class="p-4 border-b-2" @click="mostLiked()" :class="sort === 'likes_count' ? 'border-b-green-500' : 'border-b-transparent'">Most liked</button>
             <div class="p-4 border-b-2 border-b-transparent">Most answer</div>
         </div>
 

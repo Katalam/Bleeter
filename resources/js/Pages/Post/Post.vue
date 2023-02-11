@@ -14,5 +14,11 @@ defineProps({
             <p class="text-sm text-gray-500">{{ post.created_at_human }}</p>
         </div>
         <p>{{ post.body }}</p>
+        <div>
+            <button class="text-sm text-gray-500">
+                <span v-text="post.likes_count"></span>
+                Likes
+            </button>
+        </div>
     </div>
 </template>
