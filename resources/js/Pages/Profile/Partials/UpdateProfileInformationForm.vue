@@ -29,7 +29,7 @@ const form = useForm({
         </header>
 
         <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
-            <div>
+            <div class="max-w-xl">
                 <InputLabel for="name" value="Name" />
 
                 <TextInput
@@ -45,7 +45,7 @@ const form = useForm({
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
-            <div>
+            <div class="max-w-xl">
                 <InputLabel for="email" value="Email" />
 
                 <TextInput

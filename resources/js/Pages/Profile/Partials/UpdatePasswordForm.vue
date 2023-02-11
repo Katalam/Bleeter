@@ -44,7 +44,7 @@ const updatePassword = () => {
         </header>
 
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
-            <div>
+            <div class="max-w-xl">
                 <InputLabel for="current_password" value="Current Password" />
 
                 <TextInput
@@ -59,7 +59,7 @@ const updatePassword = () => {
                 <InputError :message="form.errors.current_password" class="mt-2" />
             </div>
 
-            <div>
+            <div class="max-w-xl">
                 <InputLabel for="password" value="New Password" />
 
                 <TextInput
@@ -74,7 +74,7 @@ const updatePassword = () => {
                 <InputError :message="form.errors.password" class="mt-2" />
             </div>
 
-            <div>
+            <div class="max-w-xl">
                 <InputLabel for="password_confirmation" value="Confirm Password" />
 
                 <TextInput
