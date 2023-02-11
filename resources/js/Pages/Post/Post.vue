@@ -1,10 +1,19 @@
 <script setup>
-defineProps({
+import {Inertia} from "@inertiajs/inertia";
+
+const props = defineProps({
     post: {
         type: Object,
         required: true
     }
 })
+
+function like() {
+    Inertia.get(route('like', {post: props.post.id}), {}, {
+        preserveState: true,
+        preserveScroll: true,
+    })
+}
 </script>
 
 <template>
@@ -15,7 +24,7 @@ defineProps({
         </div>
         <p>{{ post.body }}</p>
         <div>
-            <button class="text-sm text-gray-500">
+            <button class="text-sm text-gray-500" @click="like()" :class="{ 'font-semibold' : props.post.liked_by_current_user}">
                 <span v-text="post.likes_count"></span>
                 Likes
             </button>

@@ -11,7 +11,7 @@ class HomepageController extends Controller
     {
         $posts = Post::query()
             // With username and likes count
-            ->with('user:id,name')
+            ->with(['user:id,name', 'likes'])
             ->withCount('likes')
             // Limit by request parameter
             ->limit($request->get('l', 20)) // l = limit
@@ -23,7 +23,8 @@ class HomepageController extends Controller
                 // ELSe order by created_at
                 return $query->orderByDesc('created_at');
             })
-            ->get();
+            ->get()
+            ->append('liked_by_current_user');
 
         return inertia('Homepage', [
             'posts' => $posts,

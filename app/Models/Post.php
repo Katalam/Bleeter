@@ -25,6 +25,14 @@ class Post extends Model
     {
         return $this->created_at->diffForHumans();
     }
+
+    public function getLikedByCurrentUserAttribute(): bool
+    {
+        return $this->likes
+            ->pluck('user_id')
+            ->contains(auth()->id());
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

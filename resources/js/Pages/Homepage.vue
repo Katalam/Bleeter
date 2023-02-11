@@ -19,7 +19,7 @@ function loadMore() {
         preserveScroll: true,
         only: ['posts'],
         data: {
-            l: limit
+            l: limit,
         }
     })
     limit += 10;
@@ -31,6 +31,7 @@ function mostLiked() {
         preserveState: true,
         preserveScroll: true,
         only: ['posts'],
+        replace: true,
         data: {
             l: limit,
             s: 'likes_count'
@@ -39,19 +40,15 @@ function mostLiked() {
 }
 
 function mostRecent() {
-    // Remove the s param from the url
-    let params = new URLSearchParams(location.search);
-    params.delete('s')
-    window.history.replaceState({}, '', `${location.pathname}?${params}`);
-
     sort = 'created_at';
-
     Inertia.reload({
         preserveState: true,
         preserveScroll: true,
         only: ['posts'],
+        replace: true,
         data: {
             l: limit,
+            s: undefined,
         }
     })
 }
