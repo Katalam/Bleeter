@@ -1,6 +1,4 @@
 <script setup>
-import {Inertia} from "@inertiajs/inertia";
-
 const props = defineProps({
     post: {
         type: Object,
@@ -9,10 +7,20 @@ const props = defineProps({
 })
 
 function like() {
-    Inertia.get(route('like', {post: props.post.id}), {}, {
-        preserveState: true,
-        preserveScroll: true,
-    })
+    axios({
+        'method': 'POST',
+        'url': route('like'),
+        'data': {
+            'post_id': props.post.id
+        }
+    }).then(response => {
+        props.post.liked_by_current_user = response.data.liked
+        if (response.data.liked) {
+            props.post.likes_count++
+        } else {
+            props.post.likes_count--
+        }
+    });
 }
 </script>
 

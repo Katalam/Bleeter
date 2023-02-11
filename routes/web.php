@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ProfileController;
@@ -31,7 +32,9 @@ Route::group(['middleware' => ['auth']], static function () {
     Route::get('/home', HomepageController::class)->name('home');
 
     // Toggling likes on posts
-    Route::get('/like', LikeController::class)->name('like');
+    Route::post('/like', LikeController::class)->name('like');
+    // Toggling follows on users
+    Route::post('/follow', FollowController::class)->name('follow');
 
     Route::controller(ProfileController::class)
         ->as('profile.')

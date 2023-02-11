@@ -137,8 +137,8 @@ const showingNavigationDropdown = ref(false);
                         </nav>
                         <div class="w-full md:w-5/6 overflow-hidden h-max">
                             <div class="grid grid-cols-5 gap-10">
-                                <div class="col-span-3 space-y-4"
-                                     :class="{'col-span-3': !!$slots.sidebar, 'col-span-5': !!!$slots.sidebar}">
+                                <div class="space-y-4 col-span-5"
+                                     :class="{'lg:col-span-3': !!$slots.sidebar, 'md:col-span-5': !!!$slots.sidebar}">
                                     <slot/>
                                 </div>
                                 <div class="col-span-2 bg-white shadow-sm md:rounded-lg h-max">

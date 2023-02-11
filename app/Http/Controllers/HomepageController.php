@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomepageController extends Controller
@@ -26,8 +27,14 @@ class HomepageController extends Controller
             ->get()
             ->append('liked_by_current_user');
 
+        $users = User::query()
+            ->inRandomOrder()
+            ->limit(3)
+            ->get(['id', 'name', 'username']);
+
         return inertia('Homepage', [
             'posts' => $posts,
+            'users' => $users,
         ]);
     }
 }
