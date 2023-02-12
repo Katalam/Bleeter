@@ -6,4 +6,7 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
     <ResponsiveNavLink :href="route('home')" :active="route().current('home')">
         Home
     </ResponsiveNavLink>
+    <ResponsiveNavLink :href="route('trending')" :active="route().current('trending')">
+        Trending
+    </ResponsiveNavLink>
 </template>

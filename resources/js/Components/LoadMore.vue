@@ -5,7 +5,7 @@ let limit = (new URLSearchParams(document.location.search)).get('l');
 if (limit !== null) {
     limit = parseInt(limit);
 } else {
-    limit = 10;
+    limit = 20;
 }
 
 const props = defineProps({

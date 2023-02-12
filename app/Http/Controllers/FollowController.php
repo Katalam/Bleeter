@@ -12,7 +12,7 @@ class FollowController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $request->user()->followings()->toggle($request->user_id);
+        $request->user()->follows()->toggle($request->user_id);
 
         return response()->json();
     }

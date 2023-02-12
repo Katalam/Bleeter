@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 class Post extends Model
 {
@@ -87,5 +89,17 @@ class Post extends Model
 //        }
 
         return nl2br($string);
+    }
+
+    public function scopeSortByQueryParam(Builder $query, Request $request): Builder
+    {
+        // IF request has s parameter
+        return $query->when($request->has('s'), static function ($query) use ($request) {
+            // THEN order by s parameter
+            return $query->orderByDesc($request->get('s'));
+        }, static function ($query) {
+            // ELSe order by created_at
+            return $query->orderByDesc('created_at');
+        });
     }
 }

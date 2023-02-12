@@ -40,7 +40,7 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
-    public function followings(): BelongsToMany
+    public function follows(): BelongsToMany
     {
         return $this->belongsToMany(__CLASS__, 'follow_user', 'user_id', 'follow_user_id');
     }

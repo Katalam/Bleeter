@@ -14,20 +14,16 @@ defineProps({
     users: {
         type: Array,
         required: true
-    },
-    maxPosts: {
-        type: Number,
-        required: true
     }
 })
 </script>
 
 <template>
-    <Head title="Home"/>
+    <Head title="Trending"/>
 
     <AuthenticatedLayout>
         <template #header>
-            <h1>Home</h1>
+            <h1>Trending</h1>
         </template>
         <template #sidebar>
             <WhoToFollow :users="users"/>
@@ -39,6 +35,6 @@ defineProps({
             <Post :post="post" v-for="post in posts" :id="post.id"/>
         </div>
 
-        <LoadMore :max-posts="maxPosts" />
+        <LoadMore />
     </AuthenticatedLayout>
 </template>
