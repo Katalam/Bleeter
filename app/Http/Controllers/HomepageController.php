@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Service\SidebarService;
 use Illuminate\Http\Request;
 
 class HomepageController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, SidebarService $sidebarService)
     {
         $posts = Post::query()
             // With username and likes count
@@ -27,15 +28,9 @@ class HomepageController extends Controller
             ->get()
             ->append(['liked_by_current_user', 'body_html']);
 
-        $users = User::query()
-            ->whereNot('id', auth()->id())
-            ->inRandomOrder()
-            ->limit(3)
-            ->get(['id', 'name', 'username']);
-
         return inertia('Homepage', [
             'posts' => $posts,
-            'users' => $users,
+            'users' => $sidebarService->getUsers(),
         ]);
     }
 }
