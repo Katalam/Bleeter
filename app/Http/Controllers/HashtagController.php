@@ -20,7 +20,7 @@ class HashtagController extends Controller
         // With username and likes count
         $posts = Post::query()
             ->whereIn('id', $postIds)
-            ->with(['user:id,name', 'likes'])
+            ->with(['user:id,name,username', 'likes'])
             ->withCount('likes')
             // Limit by request parameter
             ->limit($request->get('l', 20)) // l = limit

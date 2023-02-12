@@ -1,6 +1,4 @@
 <script setup>
-import {Link} from "@inertiajs/inertia-vue3";
-
 const props = defineProps({
     post: {
         type: Object,
@@ -27,9 +25,12 @@ function like() {
 </script>
 
 <template>
-    <div class="bg-white shadow-sm md:rounded-lg p-4">
-        <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-500">{{ post.user.name }}</p>
+    <div class="bg-white shadow-sm md:rounded-lg p-4 space-y-2">
+        <div class="flex items-top justify-between">
+            <p class="text-sm text-gray-700 flex flex-col">
+                <span class="font-semibold text-lg">{{ post.user.name }}</span>
+                <span class="text-gray-500">{{ '@' + post.user.username }}</span>
+            </p>
             <p class="text-sm text-gray-500">{{ post.created_at_human }}</p>
         </div>
         <p v-html="post.body_html" />

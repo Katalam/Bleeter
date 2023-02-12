@@ -12,7 +12,7 @@ class TrendingController extends Controller
     {
         $posts = Post::query()
             // With username and likes count
-            ->with(['user:id,name', 'likes'])
+            ->with(['user:id,name,username', 'likes'])
             ->withCount('likes')
             // Limit by request parameter
             ->limit($request->get('l', 20)) // l = limit

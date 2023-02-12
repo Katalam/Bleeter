@@ -9,7 +9,6 @@ function mostLiked() {
         only: ['posts'],
         replace: true,
         data: {
-            l: limit,
             s: 'likes_count'
         }
     })
@@ -23,7 +22,6 @@ function mostRecent() {
         only: ['posts'],
         replace: true,
         data: {
-            l: limit,
             s: undefined,
         }
     })

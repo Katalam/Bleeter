@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import {Head} from '@inertiajs/inertia-vue3';
+import {Head, Link} from '@inertiajs/inertia-vue3';
 import Post from "@/Pages/Post/Post.vue";
 import WhoToFollow from "@/Components/WhoToFollow.vue";
 import SortTimeline from "@/Components/SortTimeline.vue";
@@ -33,12 +33,19 @@ defineProps({
             <WhoToFollow :users="users"/>
         </template>
 
-        <SortTimeline />
+        <!-- If the user doesn't follow anyone, show a message -->
+        <div v-if="maxPosts === 0" class="bg-white shadow-sm md:rounded-lg p-4 text-xl">
+            You don't follow anyone yet. Check <Link :href="route('trending')" class="text-green-500 font-semibold">Trending</Link> to find people to follow.
+        </div>
+
+        <!-- If the user follows people, show the timeline -->
+        <SortTimeline v-if="maxPosts > 0" />
 
         <div class="space-y-4">
             <Post :post="post" v-for="post in posts" :id="post.id"/>
         </div>
 
-        <LoadMore :max-posts="maxPosts" />
+        <!-- If the user follows people, show the load more button -->
+        <LoadMore :max-posts="maxPosts" v-if="maxPosts > 0" />
     </AuthenticatedLayout>
 </template>
