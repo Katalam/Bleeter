@@ -6,7 +6,12 @@ use Inertia\Testing\AssertableInertia as Assert;
 
 test('it shows the homepage', function () {
     $user = User::factory()->create();
-    $posts = Post::factory(100)->create();
+    $userSecond = User::factory()->create();
+    User::factory(3)->create(); // for the sidebar
+    $user->follows()->attach($userSecond);
+    $posts = Post::factory(100, [
+        'user_id' => $userSecond->id,
+    ])->create();
     foreach ($posts as $post) {
         $post->likes()->create([
             'user_id' => $user->id,
