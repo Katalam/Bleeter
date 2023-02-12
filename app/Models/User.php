@@ -24,6 +24,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function getCreatedAtHumanAttribute(): string
+    {
+        return $this->created_at->diffForHumans();
+    }
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);

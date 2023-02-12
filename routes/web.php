@@ -7,6 +7,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TrendingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,7 @@ Route::group(['middleware' => ['auth']], static function () {
     Route::get('/home', HomepageController::class)->name('home');
     Route::get('/trending', TrendingController::class)->name('trending');
     Route::get('/hashtags/{hashtag}', HashtagController::class)->name('hashtag');
+    Route::get('/{username}', UserController::class)->name('user-page');
 
     // Toggling likes on posts
     Route::post('/like', LikeController::class)->name('like');
