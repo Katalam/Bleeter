@@ -1,6 +1,7 @@
 <script setup>
 import {ref} from "vue";
 import {Inertia} from "@inertiajs/inertia";
+import {Link} from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
     users: {
@@ -41,7 +42,7 @@ function follow(user_id) {
         <h3 class="font-semibold text-xl">Who to follow</h3>
         <div class="divide-y">
             <div class="py-4 flex justify-between" v-for="user in users" :id="user.id">
-                <div>
+                <Link :href="route('user-page', user.username)">
                     <div class="flex items-center">
                         <img src="" alt="" class="rounded-full">
                     </div>
@@ -49,7 +50,7 @@ function follow(user_id) {
                         <p v-text="user.name"></p>
                         <p v-text="'@' + user.username" class="text-neutral-600"></p>
                     </div>
-                </div>
+                </Link>
                 <div class="flex items-center">
                     <button class="flex items-center rounded-full px-3 py-1"
                             :class="follows.includes(user.id) ? 'bg-green-300 text-white' : 'bg-green-100 text-green-600'"
