@@ -46,6 +46,7 @@ test('it shows the homepage', function () {
             ->has('user', fn(Assert $user) => $user
                 ->has('id')
                 ->has('name')
+                ->has('username')
             )
         )
         ->has('users', 3, fn(Assert $users) => $users

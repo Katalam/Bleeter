@@ -36,7 +36,6 @@ Route::group(['middleware' => ['auth']], static function () {
     Route::get('/home', HomepageController::class)->name('home');
     Route::get('/trending', TrendingController::class)->name('trending');
     Route::get('/hashtags/{hashtag}', HashtagController::class)->name('hashtag');
-    Route::get('/{username}', UserController::class)->name('user-page');
 
     // Toggling likes on posts
     Route::post('/like', LikeController::class)->name('like');
@@ -63,3 +62,7 @@ Route::group(['middleware' => ['auth']], static function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::group(['middleware' => ['auth']], static function () {
+    Route::get('/{username}', UserController::class)->name('user-page');
+});
