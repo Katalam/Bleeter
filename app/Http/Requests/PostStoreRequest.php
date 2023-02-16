@@ -15,7 +15,7 @@ class PostStoreRequest extends FormRequest
     {
         return [
             'body' => 'required|string|max:255|min:3',
-            'image' => 'nullable|image|max:1024',
+            'image' => 'nullable|image',
             'parent_id' => 'nullable|exists:posts,id',
         ];
     }

@@ -11,6 +11,7 @@ const appName = window.document.getElementsByTagName('title')[0]?.innerText || '
 
 import.meta.glob([
     '../img/**',
+    '../images/**',
 ]);
 
 createInertiaApp({

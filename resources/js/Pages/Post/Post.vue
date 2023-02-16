@@ -40,6 +40,9 @@ function answer() {
             </Link>
             <p class="text-sm text-gray-500">{{ post.created_at_human }}</p>
         </div>
+        <div v-if="post.public_url" class="flex w-full justify-center">
+            <img :src="post.public_url" alt="" class="max-h-96 rounded-lg">
+        </div>
         <p v-html="post.body_html" />
         <div class="space-x-3">
             <button class="text-sm text-gray-500" @click="like()" :class="{ 'font-semibold' : props.post.liked_by_current_user}">

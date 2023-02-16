@@ -22,6 +22,7 @@ class Post extends Model
 
     protected $appends = [
         'created_at_human',
+        'public_url',
     ];
 
     protected static function boot()
@@ -57,6 +58,11 @@ class Post extends Model
         return $this->likes
             ->pluck('user_id')
             ->contains(auth()->id());
+    }
+
+    public function getPublicUrlAttribute(): string
+    {
+        return $this->image ? asset($this->image) : '';
     }
 
     public function user(): BelongsTo

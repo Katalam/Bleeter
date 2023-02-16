@@ -13,7 +13,12 @@ class PostController extends Controller
 {
     public function store(PostStoreRequest $request): RedirectResponse
     {
-        $request->user()->posts()->create($request->safe()->toArray());
+        $attributes = $request->safe()->toArray();
+        if ($request->hasFile('image')) {
+            $attributes['image'] = $request->file('image')->store('images');
+        }
+
+        $request->user()->posts()->create($attributes);
 
         return back()->with('flash', self::flashMessage('Post created successfully!', 'success'));
     }
