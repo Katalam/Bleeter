@@ -17,6 +17,7 @@ class Post extends Model
         'user_id',
         'body',
         'image',
+        'parent_id',
     ];
 
     protected $appends = [
@@ -71,6 +72,11 @@ class Post extends Model
     public function hashtags(): HasMany
     {
         return $this->hasMany(Hashtag::class);
+    }
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany(__CLASS__, 'parent_id');
     }
 
     public function getBodyHtmlAttribute(): string

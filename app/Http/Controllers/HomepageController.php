@@ -19,7 +19,7 @@ class HomepageController extends Controller
             ->whereIn('user_id', $userIdsWhichUserFollows)
             // With username and likes count
             ->with(['user:id,name,username', 'likes'])
-            ->withCount('likes')
+            ->withCount(['likes', 'answers'])
             // Limit by request parameter
             ->limit($request->get('l', 20)) // l = limit
             ->sortByQueryParam($request)

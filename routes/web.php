@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], static function () {
         ->as('posts.')
         ->prefix('posts')
         ->group(function () {
+            Route::get('{post}', 'show')->name('show');
             Route::post('/', 'store')->name('store');
             Route::patch('/{post}', 'update')->name('update');
             Route::delete('/{post}', 'destroy')->name('destroy');

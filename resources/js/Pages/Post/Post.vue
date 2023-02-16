@@ -1,5 +1,6 @@
 <script setup>
 import {Link} from "@inertiajs/inertia-vue3";
+import {Inertia} from "@inertiajs/inertia";
 
 const props = defineProps({
     post: {
@@ -24,6 +25,10 @@ function like() {
         }
     });
 }
+
+function answer() {
+    Inertia.visit(route('posts.show', props.post.id))
+}
 </script>
 
 <template>
@@ -36,10 +41,14 @@ function like() {
             <p class="text-sm text-gray-500">{{ post.created_at_human }}</p>
         </div>
         <p v-html="post.body_html" />
-        <div>
+        <div class="space-x-3">
             <button class="text-sm text-gray-500" @click="like()" :class="{ 'font-semibold' : props.post.liked_by_current_user}">
                 <span v-text="post.likes_count"></span>
                 Likes
+            </button>
+            <button class="text-sm text-gray-500" @click="answer()" v-if="!post.parent_id">
+                <span v-text="post.answers_count"></span>
+                Answer
             </button>
         </div>
     </div>

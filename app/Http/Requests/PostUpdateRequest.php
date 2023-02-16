@@ -13,6 +13,9 @@ class PostUpdateRequest extends FormRequest
 
     public function rules(): array
     {
-        return (new PostStoreRequest())->rules();
+        return [
+            'body' => 'required|string|max:255|min:3',
+            'image' => 'nullable|image|max:1024',
+        ];
     }
 }
