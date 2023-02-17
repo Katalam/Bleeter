@@ -17,12 +17,7 @@ class HomepageController extends Controller
 
         $posts = Post::query()
             ->whereIn('user_id', $userIdsWhichUserFollows)
-            // With username and likes count
-            ->with(['user:id,name,username', 'likes'])
-            ->withCount(['likes', 'answers'])
-            // Limit by request parameter
-            ->limit($request->get('l', 20)) // l = limit
-            ->sortByQueryParam($request)
+            ->forTimeline($request)
             ->get()
             ->append(['liked_by_current_user', 'body_html']);
 

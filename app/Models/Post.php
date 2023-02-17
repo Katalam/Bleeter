@@ -108,4 +108,13 @@ class Post extends Model
             return $query->orderByDesc('created_at');
         });
     }
+
+    public function scopeForTimeLine(Builder $query, Request $request): Builder
+    {
+        return $query
+            ->with(['user:id,name,username', 'likes'])
+            ->withCount(['likes', 'answers'])
+            ->limit($request->get('l', 20))
+            ->sortByQueryParam($request);
+    }
 }

@@ -18,9 +18,7 @@ class UserController extends Controller
             ->append('created_at_human');
 
         $posts = $user->posts()
-            ->with('user:id,username,name')
-            ->withCount('likes')
-            ->limit($request->get('l', 20)) // l = limit
+            ->forTimeLine($request)
             ->latest()
             ->get()
             ->append(['liked_by_current_user', 'body_html']);
