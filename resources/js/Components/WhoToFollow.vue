@@ -38,7 +38,7 @@ function follow(user_id) {
 </script>
 
 <template>
-    <div class="bg-white shadow-sm md:rounded-lg px-4 pt-4 hidden md:block">
+    <div class="bg-white shadow-sm md:rounded-lg px-4 pt-4 hidden lg:block">
         <h3 class="font-semibold text-xl">Who to follow</h3>
         <div class="divide-y">
             <div class="py-4 flex justify-between" v-for="user in users" :id="user.id">
