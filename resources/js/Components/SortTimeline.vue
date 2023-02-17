@@ -1,8 +1,9 @@
 <script setup>
 import {Inertia} from "@inertiajs/inertia";
+import {ref} from "vue";
 
 function mostLiked() {
-    sort = 'likes_count';
+    sort.value = 'likes_count';
     Inertia.reload({
         preserveState: true,
         preserveScroll: true,
@@ -15,7 +16,7 @@ function mostLiked() {
 }
 
 function mostRecent() {
-    sort = 'created_at';
+    sort.value = 'created_at';
     Inertia.reload({
         preserveState: true,
         preserveScroll: true,
@@ -27,7 +28,7 @@ function mostRecent() {
     })
 }
 
-let sort = 'created_at';
+const sort = ref('created_at');
 </script>
 
 <template>
