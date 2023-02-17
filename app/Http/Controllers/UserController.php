@@ -13,9 +13,10 @@ class UserController extends Controller
     {
         $user = User::query()
             ->where('username', $username)
+            ->with('followers')
             ->withCount('followers', 'follows')
             ->firstOrFail(['id', 'username', 'name', 'created_at'])
-            ->append('created_at_human');
+            ->append('followed_by_current_user');
 
         $posts = $user->posts()
             ->forTimeLine($request)

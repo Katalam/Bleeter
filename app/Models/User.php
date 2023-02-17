@@ -24,9 +24,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function getCreatedAtHumanAttribute(): string
+    public function getFollowedByCurrentUserAttribute(): bool
     {
-        return $this->created_at->diffForHumans();
+        return $this->followers
+            ->pluck('id')
+            ->contains(auth()->id());
     }
 
     public function posts(): HasMany
@@ -39,11 +41,17 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
+    /*
+     * The users that the current user follows
+     */
     public function follows(): BelongsToMany
     {
         return $this->belongsToMany(__CLASS__, 'follow_user', 'user_id', 'follow_user_id');
     }
 
+    /*
+     * The users that follow the current user
+     */
     public function followers(): BelongsToMany
     {
         return $this->belongsToMany(__CLASS__, 'follow_user', 'follow_user_id', 'user_id');

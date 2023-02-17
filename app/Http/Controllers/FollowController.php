@@ -12,8 +12,10 @@ class FollowController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $request->user()->follows()->toggle($request->user_id);
+        $response = $request->user()->follows()->toggle($request->user_id);
 
-        return response()->json();
+        return response()->json([
+            'followed' => in_array($request->user_id, $response['attached'], true),
+        ]);
     }
 }
