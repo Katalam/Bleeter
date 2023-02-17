@@ -1,12 +1,35 @@
 <script setup>
 import {Link} from "@inertiajs/inertia-vue3";
 import {Inertia} from "@inertiajs/inertia";
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime';
+import {onBeforeUnmount, ref} from "vue";
+
+dayjs.extend(relativeTime);
 
 const props = defineProps({
     post: {
         type: Object,
         required: true
     }
+})
+
+const createdAt = dayjs(props.post.created_at);
+const createdAtReadable = ref(createdAt.fromNow());
+
+
+// Start the interval at the second the post was created
+// so that the time is more accurate than the updating every minute
+let interval;
+const date = new Date()
+interval = setTimeout(() => {
+    interval = setInterval(() => {
+        createdAtReadable.value = createdAt.fromNow()
+    }, 1000)
+}, createdAt.second() * 1000)
+
+onBeforeUnmount(() => {
+    clearInterval(interval)
 })
 
 function like() {
@@ -38,14 +61,15 @@ function answer() {
                 <span class="font-semibold text-lg">{{ post.user.name }}</span>
                 <span class="text-gray-500">{{ '@' + post.user.username }}</span>
             </Link>
-            <p class="text-sm text-gray-500">{{ post.created_at_human }}</p>
+            <p class="text-sm text-gray-500">{{ createdAtReadable }}</p>
         </div>
         <div v-if="post.public_url" class="flex w-full justify-center">
             <img :src="post.public_url" alt="" class="max-h-96 rounded-lg">
         </div>
-        <p v-html="post.body_html" />
+        <p v-html="post.body_html"/>
         <div class="space-x-3">
-            <button class="text-sm text-gray-500" @click="like()" :class="{ 'font-semibold' : props.post.liked_by_current_user}">
+            <button class="text-sm text-gray-500" @click="like()"
+                    :class="{ 'font-semibold' : props.post.liked_by_current_user}">
                 <span v-text="post.likes_count"></span>
                 Likes
             </button>

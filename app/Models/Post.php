@@ -21,7 +21,6 @@ class Post extends Model
     ];
 
     protected $appends = [
-        'created_at_human',
         'public_url',
     ];
 
@@ -46,11 +45,6 @@ class Post extends Model
 //                }
 //            }
         });
-    }
-
-    public function getCreatedAtHumanAttribute(): string
-    {
-        return $this->created_at->diffForHumans();
     }
 
     public function getLikedByCurrentUserAttribute(): bool

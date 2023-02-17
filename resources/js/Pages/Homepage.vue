@@ -42,7 +42,7 @@ defineProps({
         <SortTimeline v-if="maxPosts > 0" />
 
         <div class="space-y-4">
-            <Post :post="post" v-for="post in posts" :id="post.id"/>
+            <Post :post="post" v-for="post in posts" :key="post.id"/>
         </div>
 
         <!-- If the user follows people, show the load more button -->
