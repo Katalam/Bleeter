@@ -19,15 +19,19 @@ defineProps({
         type: Number,
         required: true
     },
+    hashtag: {
+        type: String,
+        required: true
+    }
 })
 </script>
 
 <template>
-    <Head title="Home"/>
+    <Head :title="hashtag"/>
 
     <AuthenticatedLayout>
         <template #header>
-            <h1>Home</h1>
+            <h1 v-text="'#' + hashtag" />
         </template>
         <template #sidebar>
             <WhoToFollow :users="users"/>
